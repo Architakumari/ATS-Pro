@@ -1,4 +1,4 @@
-# ATS Pro v2 — AI-Powered Resume & Hiring Platform
+# ATS Pro — AI-Powered Resume & Hiring Platform
 
 Full-stack web app with **two distinct user flows**, built with Flask + SQLite + Claude AI + 3D Glassmorphism UI.
 
@@ -51,43 +51,6 @@ python app.py
 **Demo company login:** `demo@company.com` / `demo1234`
 
 ---
-
-## Deploy to Internet
-
-### Railway (Recommended — free, ~2 min setup)
-1. Push code to a GitHub repo
-2. [railway.app](https://railway.app) → New Project → Deploy from GitHub
-3. Add env var: `ANTHROPIC_API_KEY=sk-ant-...`
-4. Done — `Procfile` handles everything
-
-### Render (Free tier)
-- Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
-- Add env var: `ANTHROPIC_API_KEY`
-
-### Ubuntu VPS
-```bash
-# Install nginx + app
-sudo apt install python3-venv nginx certbot python3-certbot-nginx -y
-git clone <repo> /var/www/ats_pro && cd /var/www/ats_pro
-python3 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt gunicorn
-
-# /etc/systemd/system/ats_pro.service
-[Service]
-WorkingDirectory=/var/www/ats_pro
-Environment="ANTHROPIC_API_KEY=sk-ant-..."
-Environment="SECRET_KEY=<random-64-char-string>"
-ExecStart=/var/www/ats_pro/venv/bin/gunicorn app:app --bind 127.0.0.1:5000 --workers 4 --timeout 120
-Restart=always
-
-# Nginx proxy + SSL
-sudo certbot --nginx -d yourdomain.com
-```
-
----
-
-## API Reference
 
 ### Guest (no auth required)
 ```
