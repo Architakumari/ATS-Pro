@@ -1,107 +1,174 @@
-# ATS Pro — AI-Powered Resume & Hiring Platform
+# ATS Pro v2 — Smart Resume Screening & Hiring Platform
 
-Full-stack web app with **two distinct user flows**, built with Flask + SQLite + Claude AI + 3D Glassmorphism UI.
-
----
-
-## Two Flows, One Platform
-
-### Flow 1 — Job Seekers (No Account Needed) → `/check`
-Upload a resume and instantly get:
-- Overall ATS score (0–100) with sub-scores: Content, Format, Language, Keywords
-- Role-specific scoring — pick from 8 preset roles or type any custom role
-- Language & grammar issues flagged with severity + exact fixes
-- Before/after rewrite suggestions for weak bullet points
-- Stronger word choice replacements
-- Missing ATS keywords to add
-- Formatting tips for better ATS pass rates
-- Numbered priority action plan
-
-**No login. No account. Free. Results in ~10 seconds.**
-
-### Flow 2 — Companies & Recruiters (Account Required) → `/company`
-Full hiring dashboard:
-- **Analyze Resume** — ATS score + AI Hire / Maybe / Reject recommendation with reasoning
-- **Green & Red Flags** — automatically spotted by AI
-- **Skill Gap Analysis** — matched, missing, bonus skills
-- **Interview Questions** — AI-generated per candidate profile
-- **Compare & Decide** — select 2–5 candidates, get ranked leaderboard + interview/reject/shortlist lists
-- **Candidate Pipeline** — New → Shortlisted → Interviewing → Offered / Rejected
-- **Analytics** — 8 Chart.js charts: score bands, role breakdown, hire decisions, trend, skill gaps, pipeline status, company match, avg by role
-- **Job Roles Manager** — 8 built-in roles + add custom roles
+ATS Pro is a Flask-based smart resume screening and hiring platform designed to simplify candidate evaluation and recruitment workflows. The platform helps recruiters analyze resumes, calculate ATS scores, manage candidates, and streamline hiring processes through an interactive dashboard.
 
 ---
 
-## Quick Start (Local)
+## Features
+
+### Candidate Features
+
+* Resume upload and analysis
+* ATS score calculation
+* Skill matching and evaluation
+* Resume parsing and candidate ranking
+* Authentication system for users
+
+### Recruiter Features
+
+* Recruiter dashboard and analytics
+* Candidate management system
+* Resume comparison and filtering
+* Job listing and management
+* Recruitment insights and tracking
+
+### Technical Features
+
+* RESTful API integration
+* Flask backend architecture
+* SQLite database integration
+* Responsive UI using HTML, CSS, and JavaScript
+* Secure authentication modules
+* Dynamic dashboard components
+
+---
+
+# Tech Stack
+
+| Category   | Technologies            |
+| ---------- | ----------------------- |
+| Backend    | Flask (Python)          |
+| Frontend   | HTML, CSS, JavaScript   |
+| Database   | SQLite                  |
+| Charts     | Chart.js                |
+| UI         | Glassmorphism UI Design |
+| Deployment | Gunicorn                |
+
+---
+
+# Project Structure
 
 ```bash
-cd ats_pro
-python3 -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+ATS_PRO/
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── uploads/
+│
+├── templates/
+│   ├── analytics.html
+│   ├── analyze.html
+│   ├── candidates.html
+│   ├── company_analytics.html
+│   ├── company_compare.html
+│   ├── company_jobs.html
+│   ├── home.html
+│   ├── jobs.html
+│   ├── login.html
+│   └── register.html
+│
+├── app.py
+├── requirements.txt
+├── Procfile
+├── README.md
+└── .env.example
+```
+
+---
+
+# Installation & Setup
+
+## Clone Repository
+
+```bash
+git clone https://github.com/Architakumari/ATS-Pro.git
+cd ATS-Pro
+```
+
+## Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Environment
+
+#### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+#### Linux / MacOS
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+# Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-# Optional — add your Anthropic key (app works in demo mode without it)
-cp .env.example .env
-# Edit .env: ANTHROPIC_API_KEY=sk-ant-your-key-here
+---
 
+# Run Application
+
+```bash
 python app.py
-# Open http://localhost:5000
 ```
 
-**Demo company login:** `demo@company.com` / `demo1234`
+Application will run at:
 
----
-
-### Guest (no auth required)
-```
-POST /api/guest/check
-  Form fields: resume (file), check_type (overall|role), role (string)
-```
-
-### Company Auth
-```
-POST /api/company/register   {name, company, email, password, industry}
-POST /api/company/login      {email, password}
-GET  /api/company/me         → returns company profile
-```
-
-### Company (Bearer token required)
-```
-POST   /api/company/analyze                    resume upload (multipart)
-GET    /api/company/candidates                 list + filter/search/sort
-GET    /api/company/candidates/<id>            single detail
-PATCH  /api/company/candidates/<id>/update     {status, hire_recommendation, notes}
-DELETE /api/company/candidates/<id>            remove
-POST   /api/company/compare                    {candidate_ids: [...], role}
-GET    /api/company/jobs                       all roles
-POST   /api/company/jobs                       {emoji, title, department, required_skills}
-DELETE /api/company/jobs/<id>                  delete custom role
-GET    /api/company/analytics                  full chart data
-GET    /api/company/dashboard                  summary stats
+```bash
+http://127.0.0.1:5000
 ```
 
 ---
 
-## Tech Stack
+# Main Modules
 
-| Layer | Tech |
-|-------|------|
-| Backend | Python 3.12 + Flask 3 |
-| Database | SQLite (stdlib) |
-| Auth | Custom JWT (HMAC-SHA256) |
-| AI | Anthropic Claude API |
-| PDF | pypdf |
-| DOCX | python-docx |
-| Charts | Chart.js |
-| UI | 3D Glassmorphism CSS template |
-| Deployment | Gunicorn |
+## Resume Analysis
+
+Analyzes uploaded resumes and calculates ATS scores based on skills and job requirements.
+
+## Candidate Management
+
+Allows recruiters to view, manage, and compare candidate profiles.
+
+## Analytics Dashboard
+
+Provides hiring analytics, candidate insights, and recruitment statistics.
+
+## Job Management
+
+Supports job posting, candidate tracking, and hiring workflows.
 
 ---
 
-## Production Notes
-- Change `SECRET_KEY` to a long random string before deploying
-- Set `FLASK_DEBUG=false` in production
-- For high traffic, consider PostgreSQL instead of SQLite
-- Add rate limiting on `/api/guest/check` to prevent abuse
+# Future Improvements
 
-© 2026 ATS Pro
+* PostgreSQL integration
+* AI-based resume recommendations
+* Interview scheduling system
+* Email notifications
+* Cloud deployment support
+* Advanced recruiter analytics
+
+---
+
+# Author
+
+**Archita Kumari**
+
+GitHub: [https://github.com/Architakumari](https://github.com/Architakumari)
+
+---
+
+# License
+
+This project is developed for educational and learning purposes.
