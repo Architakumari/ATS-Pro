@@ -165,7 +165,6 @@ Supports job posting, candidate tracking, and hiring workflows.
 
 **Archita Kumari**
 
-GitHub: [https://github.com/Architakumari](https://github.com/Architakumari)
 
 ---
 
